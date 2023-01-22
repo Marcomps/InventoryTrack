@@ -1,28 +1,17 @@
 ﻿using InventoryTrackWeb.Models.Context;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using InventoryTrackWeb.Models;
-using InventoryTrackWeb.Models.Context;
-using System.Data;
-using System.Net;
 using AutoMapper;
 using InventoryTrackWeb.Models.ViewModels;
 using System.Diagnostics;
-using System.Xml;
 
 namespace NewDesktopWeb.Controllers
 {
     public class ProductController : Controller 
     {
-        InventoryTrackTestContext db = new InventoryTrackTestContext();
-        InventoryTrackTestContext context;
-        object dbe = new InventoryTrackTestContext();
-        DbContext dbContext;
-
-        //private readonly IMapper _mapper;
-         private readonly IMapper _mapper;
+        InventoryTrackTestContext db;
+        private readonly IMapper _mapper;
 
         public ProductController(IMapper mapper)
         {
@@ -36,22 +25,16 @@ namespace NewDesktopWeb.Controllers
             {
                 ProductViewModels product = new ProductViewModels();
                 List<ProductViewModels> prodList = _mapper.Map<List<ProductViewModels>>(db.Products.ToList());
-                return View(prodList);
+                return View(prodList.OrderBy(product => product.Date));
             }
         }
 
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            // GemaInventoryTrackTestContext db = new GemaInventoryTrackTestContext();
-
-            //return View(db.Products.Where(p => p.ProductId == id));
-            //return View(db.Products.Find(id));
             using (var db = new InventoryTrackTestContext())
             {
-                //var blogs = db.Products
-                //    .ToList();
-                return View(db.Products.Find(id));
+                return View(_mapper.Map<ProductViewModels>(db.Products.Find(id)));
             }
         }
 
@@ -94,8 +77,6 @@ namespace NewDesktopWeb.Controllers
             using (var db = new InventoryTrackTestContext())
             {
                 var product = _mapper.Map<ProductViewModels>(db.Products.Find(id));
-                //return View(product);
-                //return View(db.Products.Find(id));
                 return View(_mapper.Map<ProductViewModels>(db.Products.Find(id)));
             }
         }
@@ -120,7 +101,7 @@ namespace NewDesktopWeb.Controllers
         {
             using (var db = new InventoryTrackTestContext())
             {
-                return View(db.Products.Find(id));
+                return View(_mapper.Map<ProductViewModels>(db.Products.Find(id)));
             }
         }
 
@@ -131,11 +112,12 @@ namespace NewDesktopWeb.Controllers
         {
             using (var db = new InventoryTrackTestContext())
             {
-                var product = db.Products.Find(id);
-                db.Products.Remove(product);
-                db.SaveChanges();
                 try
                 {
+                    var productEntity = _mapper.Map<Product>(db.Products.Find(id));
+                    db.Entry(productEntity).State = EntityState.Modified;
+                    db.Set<Product>().Remove(productEntity);
+                    db.SaveChanges();
                     return RedirectToAction(nameof(List));
                 }
                 catch

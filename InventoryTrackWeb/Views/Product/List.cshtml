@@ -1,0 +1,70 @@
+﻿@model IEnumerable<InventoryTrackWeb.Models.ViewModels.ProductViewModels>
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>Productos</h1>
+
+<p>
+    <a asp-action="Create"><input type="button" value="Nuevo" class="btn btn-outline-dark active"/></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitCostSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitCostSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductId"> <input type="button" value="Editar" class="btn btn-success active"/></a> |
+                <a asp-action="Details" asp-route-id="@item.ProductId"> <input type="button" value="Detalle" class="btn btn-info active" /></a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductId"> <input type="button" value="Eliminar" class="btn btn-danger active" /></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

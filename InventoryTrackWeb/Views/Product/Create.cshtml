@@ -1,0 +1,75 @@
+﻿@*@model InventoryTrackWeb.Models.Product*@
+@model InventoryTrackWeb.Models.ViewModels.ProductViewModels
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Agregar</h1>
+
+<h4>Producto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" data-val="false" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitCost" class="control-label"></label>
+                <input asp-for="UnitCost" class="form-control" onkeyup="multiply()" />
+                <span asp-validation-for="UnitCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitCostSale" class="control-label"></label>
+                <input asp-for="UnitCostSale" class="form-control" onkeyup="multiply()" />
+                <span asp-validation-for="UnitCostSale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label"></label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" type="date" id="date" name="Date"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Agregar" class="btn btn-success active" />
+                | <a asp-action="List"> <input type="button" value="Regresar" class="btn btn-info active" /></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section Js {
+    <script>
+        src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        $('#date').val(new Date().toJSON().slice(0, 10));
+
+        function multiply() {
+            var unitCost = document.getElementById("UnitCost").value;
+            var unitCostSale = document.getElementById("UnitCostSale").value;
+            var total = unitCost * unitCostSale;
+            console.log(unitCost)
+            console.log(unitCostSale)
+            console.log("Resultado de Total: " + total)
+            $("#Total").val(total);
+        }
+    </script>
+}

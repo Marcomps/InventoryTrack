@@ -2,7 +2,6 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace InventoryTrackWeb.Models
 {
@@ -21,8 +20,9 @@ namespace InventoryTrackWeb.Models
         public decimal UnitCost { get; set; }
         public decimal UnitCostSale { get; set; }
         public decimal? Total { get; set; }
-        [DataType(DataType.Date), Display(Name = "Fecha"), DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? Date { get; set; }
+        public decimal? CostSaleTotal { get; set; }
+
         public virtual ICollection<PreSale> PreSales { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }
     }

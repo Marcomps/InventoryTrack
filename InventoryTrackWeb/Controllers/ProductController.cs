@@ -10,7 +10,7 @@ namespace NewDesktopWeb.Controllers
 {
     public class ProductController : Controller 
     {
-        InventoryTrackTestContext db;
+        InventoryTrackTestContext db = new InventoryTrackTestContext();
         private readonly IMapper _mapper;
 
         public ProductController(IMapper mapper)
@@ -72,13 +72,18 @@ namespace NewDesktopWeb.Controllers
         }
 
         // GET: Product/Edit/5
+        //public ActionResult Edit(int id)
         public ActionResult Edit(int id)
         {
-            using (var db = new InventoryTrackTestContext())
-            {
-                var product = _mapper.Map<ProductViewModels>(db.Products.Find(id));
-                return View(_mapper.Map<ProductViewModels>(db.Products.Find(id)));
-            }
+            var testa = db.Products.Find(id);
+            return PartialView("Edit", db.Products.Find(id));
+            //return PartialView("EditPartial");
+            //using (var db = new InventoryTrackTestContext())
+            //{
+            //    var product = _mapper.Map<ProductViewModels>(db.Products.Find(id));
+            //    return PartialView("EditPartial");
+            //    //return PartialView("Edit", _mapper.Map<ProductViewModels>(db.Products.Find(id)));
+            //}
         }
 
         // POST: Product/Edit/5

@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
+                <input asp-for="Stock" class="form-control" type="text" onkeyup="multiplyCostSaleTotal()"/>
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,19 +26,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="UnitCost" class="control-label"></label>
-                <input asp-for="UnitCost" class="form-control" onkeyup="multiply()" />
+                <input asp-for="UnitCost" class="form-control" onkeyup="multiplyUnitCostSale(); multiplyCostSaleTotal()" />
                 <span asp-validation-for="UnitCost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UnitCostSale" class="control-label"></label>
-                <input asp-for="UnitCostSale" class="form-control" onkeyup="multiply()" />
+                <input asp-for="UnitCostSale" class="form-control" onkeyup="multiplyUnitCostSale(); multiplyCostSaleTotal()" />
                 <span asp-validation-for="UnitCostSale" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Total" class="control-label"></label>
                 <input asp-for="Total" class="form-control" />
                 <span asp-validation-for="Total" class="text-danger"></span>
-
+            </div>
+            <div class="form-group">
+                <label asp-for="CostSaleTotal" class="control-label"></label>
+                <input asp-for="CostSaleTotal" class="form-control" />
+                <span asp-validation-for="CostSaleTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
@@ -61,7 +65,7 @@
         src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
         $('#date').val(new Date().toJSON().slice(0, 10));
 
-        function multiply() {
+        function multiplyUnitCostSale() {
             var unitCost = document.getElementById("UnitCost").value;
             var unitCostSale = document.getElementById("UnitCostSale").value;
             var total = unitCost * unitCostSale;
@@ -69,6 +73,17 @@
             console.log(unitCostSale)
             console.log("Resultado de Total: " + total)
             $("#Total").val(total);
+        }
+
+        function multiplyCostSaleTotal() {
+            var stock = document.getElementById("Stock").value;
+            var unitCost = document.getElementById("UnitCost").value;
+            var unitCostSale = document.getElementById("UnitCostSale").value;
+            var total = unitCost * unitCostSale;
+            console.log(unitCost)
+            console.log(unitCostSale)
+            console.log("Resultado de costo Total: " + total)
+            $("#CostSaleTotal").val(total * stock);
         }
     </script>
 }

@@ -56,6 +56,8 @@ namespace InventoryTrackWeb.Models.Context
             {
                 entity.ToTable("Product");
 
+                entity.Property(e => e.CostSaleTotal).HasColumnType("decimal(9, 2)");
+
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.Description)

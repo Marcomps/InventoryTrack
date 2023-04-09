@@ -76,7 +76,8 @@ namespace NewDesktopWeb.Controllers
         public ActionResult Edit(int id)
         {
             var testa = db.Products.Find(id);
-            return PartialView("Edit", db.Products.Find(id));
+            return View(testa);
+            //return PartialView("Edit", db.Products.Find(id));
             //return PartialView("EditPartial");
             //using (var db = new InventoryTrackTestContext())
             //{

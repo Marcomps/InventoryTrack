@@ -8,10 +8,10 @@
 <p>
     <a asp-action="Create"><input type="button" value="Nuevo" class="btn btn-outline-dark active"/></a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class="table  table-dark">
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
@@ -68,7 +68,14 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId"> <input type="button" value="Editar" class="btn btn-success active"/></a> |
                 <a asp-action="Details" asp-route-id="@item.ProductId"> <input type="button" value="Detalle" class="btn btn-info active" /></a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId"> <input type="button" value="Eliminar" class="btn btn-danger active" /></a>
+                <a asp-action="Delete" asp-route-id="@item.ProductId"> <input type="button" value="Eliminar" class="btn btn-danger active" /></a> |
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="@("#DetailsProduct-" + item.ProductId)" data-url="@Url.Action("Detail",item.ProductId)">
+                        Detalle
+                    </button>
+
+                    @{await Html.RenderPartialAsync("_ProductDetailsPartialView", item);}
+
             </td>
         </tr>
 }

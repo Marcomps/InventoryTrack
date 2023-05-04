@@ -6,7 +6,7 @@
 <h1>Productos</h1>
 
 <p>
-    <a asp-action="Create"><input type="button" value="Nuevo" class="btn btn-outline-dark active"/></a>
+    <a asp-action="Create"><input type="button" value="Nuevo" class="btn btn-outline-dark active" /></a>
 </p>
 <table class="table table-striped">
     <thead class="table  table-dark">
@@ -39,45 +39,44 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitCost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitCostSale)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostSaleTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId"> <input type="button" value="Editar" class="btn btn-success active"/></a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId"> <input type="button" value="Detalle" class="btn btn-info active" /></a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId"> <input type="button" value="Eliminar" class="btn btn-danger active" /></a> |
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitCostSale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CostSaleTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId"> <input type="button" value="Editar" class="btn btn-success active" /></a> |
+                    <a type="button" data-bs-toggle="modal" data-bs-target="@("#DetailsProduct-" + item.ProductId)"><input type="button" value="Detalle" class="btn btn-primary"/></a>|
+                    <a asp-action="Delete" asp-route-id="@item.ProductId"> <input type="button" value="Eliminar" class="btn btn-danger active" /></a>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="@("#DetailsProduct-" + item.ProductId)" data-url="@Url.Action("Detail",item.ProductId)">
-                        Detalle
-                    </button>
+                    @{
+                        await Html.RenderPartialAsync("_ProductDetailsPartialView", item);
+                    }
 
-                    @{await Html.RenderPartialAsync("_ProductDetailsPartialView", item);}
-
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

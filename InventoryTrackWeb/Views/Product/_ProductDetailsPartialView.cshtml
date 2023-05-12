@@ -4,7 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Detailsss">Detalle del Producto @Model.ProductName con ID: @Model.ProductId</h5>
+                <h5 class="modal-title" id="TitleDetails">Detalle del producto <b>@Model.ProductName</b></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body table-bordered">
@@ -58,6 +58,9 @@
                         @Html.DisplayFor(model => model.Date)
                     </dd>
                 </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

@@ -67,12 +67,14 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductId"> <input type="button" value="Editar" class="btn btn-success active" /></a> |
+                    <a type="button" data-bs-toggle="modal" data-bs-target="@("#EditProduct-" + item.ProductId)"><input type="button" value="Editar" class="btn btn-success active" /></a>|
                     <a type="button" data-bs-toggle="modal" data-bs-target="@("#DetailsProduct-" + item.ProductId)"><input type="button" value="Detalle" class="btn btn-primary"/></a>|
-                    <a asp-action="Delete" asp-route-id="@item.ProductId"> <input type="button" value="Eliminar" class="btn btn-danger active" /></a>
+                    <a type="button" data-bs-toggle="modal" data-bs-target="@("#DeleteProduct-" + item.ProductId)"><input type="button" value="Eliminar" class="btn btn-danger active" /></a>|
 
                     @{
+                        await Html.RenderPartialAsync("_ProducEditPartialView", item);
                         await Html.RenderPartialAsync("_ProductDetailsPartialView", item);
+                        await Html.RenderPartialAsync("_ProductDeletePartialView", item);
                     }
 
                 </td>

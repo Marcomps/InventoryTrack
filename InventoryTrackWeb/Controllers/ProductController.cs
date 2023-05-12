@@ -29,15 +29,6 @@ namespace NewDesktopWeb.Controllers
             }
         }
 
-        // GET: Product/Details/5
-        public ActionResult Details(int id)
-        {
-            using (var db = new InventoryTrackTestContext())
-            {
-                return View(_mapper.Map<ProductViewModels>(db.Products.Find(id)));
-            }
-        }
-
         // GET: Product/Create
         public ActionResult Create()
         {
@@ -71,44 +62,24 @@ namespace NewDesktopWeb.Controllers
             }
         }
 
-        // GET: Product/Edit/5
-        //public ActionResult Edit(int id)
-        public ActionResult Edit(int id)
-        {
-            var testa = db.Products.Find(id);
-            return View(testa);
-            //return PartialView("Edit", db.Products.Find(id));
-            //return PartialView("EditPartial");
-            //using (var db = new InventoryTrackTestContext())
-            //{
-            //    var product = _mapper.Map<ProductViewModels>(db.Products.Find(id));
-            //    return PartialView("EditPartial");
-            //    //return PartialView("Edit", _mapper.Map<ProductViewModels>(db.Products.Find(id)));
-            //}
-        }
-
         // POST: Product/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, ProductViewModels collection)
         {
-            using (var db = new InventoryTrackTestContext())
+            if (id != null && collection.ProductName != null)
             {
-                var productEntity = _mapper.Map<Product>(collection);
-                db.Entry(productEntity).State = EntityState.Modified;
-                db.Set<Product>().Update(productEntity);
-                db.SaveChanges();
+                using (var db = new InventoryTrackTestContext())
+                {
+                    var productEntity = _mapper.Map<Product>(collection);
+                    db.Entry(productEntity).State = EntityState.Modified;
+                    db.Set<Product>().Update(productEntity);
+                    db.SaveChanges();
+                }
+                return RedirectToAction(nameof(List));
             }
             return RedirectToAction(nameof(List));
-        }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            using (var db = new InventoryTrackTestContext())
-            {
-                return View(_mapper.Map<ProductViewModels>(db.Products.Find(id)));
-            }
         }
 
         // POST: Product/Delete/5

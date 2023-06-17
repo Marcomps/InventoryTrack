@@ -1,0 +1,63 @@
+﻿@model InventoryTrackWeb.Models.ViewModels.ProductViewModels
+
+<div class="modal fade" id="EditProduct-@Model.ProductId" aria-labelledby="DetailsProductLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TitleEdit">Editar <b>@Model.ProductName</b></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="EditFormPopup" asp-action="Edit" asp-route-id="@Model.ProductId">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ProductId" />
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input id="ProductName-@Model.ProductId" asp-for="ProductName" class="form-control col-8 col-sm-6" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Stock" class="control-label"></label>
+                        <input id="Stock-@Model.ProductId" asp-for="Stock" class="form-control" type="text" min="0" onchange="multiplyCostSaleTotal(@Model.ProductId)" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input id="Description-@Model.ProductId" asp-for="Description" class="form-control" data-val="false" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitCost" class="control-label"></label>
+                        <input id="UnitCost-@Model.ProductId" asp-for="UnitCost" class="form-control" onchange="multiplyUnitCostSale(@Model.ProductId); multiplyCostSaleTotal(@Model.ProductId)" />
+                        <span asp-validation-for="UnitCost" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitCostSale" class="control-label"></label>
+                        <input id="UnitCostSale-@Model.ProductId" asp-for="UnitCostSale" class="form-control" onkeyup="multiplyUnitCostSale(@Model.ProductId); multiplyCostSaleTotal(@Model.ProductId)" />
+                        <span asp-validation-for="UnitCostSale" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Total" class="control-label"></label>
+                        <span class="text-muted" style="font-size: 12px;"> Costo Unitario * Costo de venta" <span id="UnitCostValue-@Model.ProductId"></span></span>
+                        <input id="Total-@Model.ProductId" asp-for="Total" class="form-control" />
+                        <span asp-validation-for="Total" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CostSaleTotal" class="control-label"></label>
+                        <span class="text-muted" style="font-size: 12px;">Stock * Costo de venta <span id="UnitCostValue-@Model.ProductId"></span></span>
+                        <input id="CostSaleTotal-@Model.ProductId" asp-for="CostSaleTotal" class="form-control" />
+                        <span asp-validation-for="CostSaleTotal" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label"></label>
+                        <input id="Date-@Model.ProductId" asp-for="Date" class="form-control col-8 col-sm-6" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success active">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

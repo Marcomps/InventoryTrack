@@ -6,35 +6,20 @@
 <h1>Productos</h1>
 
 <p>
-    <a asp-action="Create"><input type="button" value="Nuevo" class="btn btn-outline-dark active" /></a>
+    <a asp-action="Create" class="btn btn-dark">Nuevo</a>
 </p>
+
 <table class="table table-striped">
-    <thead class="table  table-dark">
+    <thead class="table table-dark">
         <tr>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitCost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitCostSale)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostSaleTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.ProductName)</th>
+            <th>@Html.DisplayNameFor(model => model.Stock)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.UnitCost)</th>
+            <th>@Html.DisplayNameFor(model => model.UnitCostSale)</th>
+            <th>@Html.DisplayNameFor(model => model.Total)</th>
+            <th>@Html.DisplayNameFor(model => model.CostSaleTotal)</th>
+            <th>@Html.DisplayNameFor(model => model.Date)</th>
             <th></th>
         </tr>
     </thead>
@@ -42,41 +27,25 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.UnitCost)</td>
+                <td>@Html.DisplayFor(modelItem => item.UnitCostSale)</td>
+                <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                <td>@Html.DisplayFor(modelItem => item.CostSaleTotal)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Stock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitCost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitCostSale)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CostSaleTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    <a type="button" data-bs-toggle="modal" data-bs-target="@("#EditProduct-" + item.ProductId)"><input type="button" value="Editar" class="btn btn-success active" /></a>|
-                    <a type="button" data-bs-toggle="modal" data-bs-target="@("#DetailsProduct-" + item.ProductId)"><input type="button" value="Detalle" class="btn btn-primary"/></a>|
-                    <a type="button" data-bs-toggle="modal" data-bs-target="@("#DeleteProduct-" + item.ProductId)"><input type="button" value="Eliminar" class="btn btn-danger active" /></a>|
-
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="@("#EditProduct-" + item.ProductId)">Editar</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="@("#DetailsProduct-" + item.ProductId)">Detalle</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="@("#DeleteProduct-" + item.ProductId)">Eliminar</button>
+                    </div>
                     @{
-                        await Html.RenderPartialAsync("_ProducEditPartialView", item);
+                        await Html.RenderPartialAsync("_ProductEditPartialView", item);
                         await Html.RenderPartialAsync("_ProductDetailsPartialView", item);
                         await Html.RenderPartialAsync("_ProductDeletePartialView", item);
                     }
-
                 </td>
             </tr>
         }
